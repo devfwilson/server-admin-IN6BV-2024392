@@ -6,7 +6,7 @@ export const createField = async (req, res) => {
 
         const fieldData = req.body;
 
-        if(req.file) {
+        if (req.file) {
             fieldData.photo = req.file.path;
         }
 
@@ -22,23 +22,24 @@ export const createField = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             success: false,
-            message: 'Error al crear el campo',
+            message: 'Error al crear campo',
             error: error.message
-        });
+        })
     }
+
 }
 
 export const getFields = async (req, res) => {
 
     try {
-        const { page = 1, limit = 10, isActive = true} = req.query;
+    const { page = 1, limit = 10, isActive = true } = req.query;
 
     const filter = { isActive };
 
     const options = {
         page: parseInt(page),
         limit: parseInt(limit),
-        sort: { createdAt: -1}
+        sort: { createdAt: -1 }
     }
 
     const fields = await Field.find(filter)
@@ -46,19 +47,19 @@ export const getFields = async (req, res) => {
         .skip((page - 1) * limit)
         .sort(options.sort);
 
-        const total = await Field.countDocuments(filter);
+    const total = await Field.countDocuments(filter);
 
-        res.status(200).json({
-            success: true,
-            data: fields,
-            pagination: {
-                currentPage: page,
-                totalPages: Math.ceil(total/limit),
-                totalRecords: total,
-                limit
-            }
-        })
-    } catch (error) {
+    res.status(200).json({
+        success: true,
+        data: fields,
+        pagination: {
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            totalRecords: total,
+            limit
+        }
+    })
+    }catch (error) {
         res.status(500).json({
             success: false,
             message: 'Error al obtener los campos',

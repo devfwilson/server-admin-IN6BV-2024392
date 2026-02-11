@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import { dbConnection } from './db.js';
 import { corsOptions } from './cors-configuration.js';
 import { helmetConfiguration } from './helmet-configuration.js';
-import fieldRoutes from '../src/fields/field.routes.js';
+import fieldRoutes from '../src/fields/field.routes.js'
 
 const BASE_PATH = '/kinalSportsAdmin/v1';
 
@@ -24,7 +24,7 @@ const routes = (app) => {
     app.use(`${BASE_PATH}/fields`, fieldRoutes);
 
     app.get(`${BASE_PATH}/Health`, (request, response) => {
-        response.status(200).json({ 
+        response.status(200).json({
             status: 'Healthy',
             timestamp: new Date().toISOString(),
             service : 'KinalSports Admin Server',
